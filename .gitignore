@@ -1,0 +1,46 @@
+# --- Secrets ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!apps/web/.env.example
+
+# --- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# --- JavaScript ------------------------------------------------------------
+node_modules/
+apps/web/dist/
+apps/web/.vite/
+.turbo/
+*.tsbuildinfo
+playwright-report/
+test-results/
+# Screenshots are checked in — they are the README's screenshot grid.
+!docs/screenshots/
+blob-report/
+
+# --- Local state -----------------------------------------------------------
+# SQLite state is rebuilt from the reference dataset on first boot.
+var/
+# The model registry / audit log are rebuilt from migrations + reference data.
+*.sqlite
+*.sqlite3
+*.db
+
+# --- Editors / OS ----------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
