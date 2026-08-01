@@ -1,0 +1,9 @@
+# Normalise to LF in the repo. The Makefile and shell scripts are executed by
+# POSIX tools in CI and in Docker, where CRLF is a syntax error.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+uv.lock linguist-generated=true
+pnpm-lock.yaml linguist-generated=true
