@@ -1,0 +1,26 @@
+{
+  "name": "distillserve",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Self-hosted LLM inference and task-specific distillation platform.",
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently -n gateway,web -c cyan,magenta \"pnpm run dev:gateway\" \"pnpm run dev:web\"",
+    "dev:gateway": "uv run uvicorn distillserve_gateway.main:app --host 0.0.0.0 --port 8000 --reload",
+    "dev:web": "pnpm --filter @distillserve/web dev",
+    "build": "pnpm --filter @distillserve/web build",
+    "test": "pnpm --filter @distillserve/web test",
+    "lint": "pnpm -r --if-present lint",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,css,json,md,yaml,yml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,css,json,md,yaml,yml}\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8"
+  }
+}
