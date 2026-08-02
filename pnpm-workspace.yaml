@@ -1,0 +1,9 @@
+packages:
+  - 'apps/web'
+  - 'packages/*'
+
+# pnpm blocks postinstall scripts by default. esbuild (Vite's bundler) needs
+# its own to place the platform binary, so it is allow-listed explicitly —
+# an allow-list keeps every other dependency's install scripts blocked.
+onlyBuiltDependencies:
+  - esbuild
