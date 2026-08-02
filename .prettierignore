@@ -1,0 +1,10 @@
+pnpm-lock.yaml
+uv.lock
+dist/
+node_modules/
+.venv/
+
+# Machine-written and content-hashed. Prettier would reformat them and break
+# `--check` in CI, which compares against a freshly generated file byte for byte.
+apps/web/src/lib/generated/
+data/reference/manifest.json
