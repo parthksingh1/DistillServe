@@ -1,0 +1,88 @@
+# ---------------------------------------------------------------------------
+# DistillServe price sheet.
+#
+# Cost accounting is first-class: every completion, in every mode, is priced
+# through this file so that a hosted call and a self-hosted call produce
+# numbers that can be compared directly. That comparison is the platform's
+# central claim, and it is only meaningful if both sides come from one sheet.
+#
+# `version` is stamped onto every CostBreakdown. Changing a price changes the
+# version, so a historical dashboard number can always be re-derived from the
+# sheet that produced it rather than the sheet in effect today.
+# ---------------------------------------------------------------------------
+version: '2026-09-05a'
+
+# --- Hosted providers ------------------------------------------------------
+# USD per 1M tokens, as published by each provider. Keys are LiteLLM model ids
+# so a lookup never needs a translation table.
+hosted:
+  groq/llama-3.3-70b-versatile:
+    input_usd_per_mtok: 0.59
+    output_usd_per_mtok: 0.79
+    source: https://groq.com/pricing
+  groq/llama-3.1-8b-instant:
+    input_usd_per_mtok: 0.05
+    output_usd_per_mtok: 0.08
+    source: https://groq.com/pricing
+  # Gemini 2.5 Pro is priced by prompt length; the <=200k-token tier is used
+  # here because DistillServe's routed traffic sits well under that. Update the
+  # entry if you start routing long-context requests.
+  gemini/gemini-2.5-pro:
+    input_usd_per_mtok: 1.25
+    output_usd_per_mtok: 10.00
+    source: https://ai.google.dev/gemini-api/docs/pricing
+  gemini/gemini-2.5-flash:
+    input_usd_per_mtok: 0.30
+    output_usd_per_mtok: 2.50
+    source: https://ai.google.dev/gemini-api/docs/pricing
+  gemini/gemini-2.5-flash-lite:
+    input_usd_per_mtok: 0.10
+    output_usd_per_mtok: 0.40
+    source: https://ai.google.dev/gemini-api/docs/pricing
+  openai/gpt-4o:
+    input_usd_per_mtok: 2.50
+    output_usd_per_mtok: 10.00
+    source: https://openai.com/api/pricing/
+  openai/gpt-4o-mini:
+    input_usd_per_mtok: 0.15
+    output_usd_per_mtok: 0.60
+    source: https://openai.com/api/pricing/
+  anthropic/claude-sonnet-4-5:
+    input_usd_per_mtok: 3.00
+    output_usd_per_mtok: 15.00
+    source: https://www.anthropic.com/pricing
+  anthropic/claude-haiku-4-5:
+    input_usd_per_mtok: 1.00
+    output_usd_per_mtok: 5.00
+    source: https://www.anthropic.com/pricing
+
+# Applied when a model id is absent from `hosted`. Deliberately expensive: an
+# unpriced model should stand out on the cost dashboard, not silently read as
+# free and quietly understate spend.
+hosted_default:
+  input_usd_per_mtok: 5.00
+  output_usd_per_mtok: 15.00
+  source: 'Fallback for unpriced models — add the model above to price it correctly.'
+
+# --- Self-hosted serving ---------------------------------------------------
+# Self-hosted cost is a rate, not a per-token price: the GPU is billed by the
+# second whether it is decoding or idle. Per-token cost is therefore *derived*
+# from throughput, which is exactly why raising tok/s lowers $/M tokens.
+#
+#   usd_per_mtok = (gpu_count * usd_per_gpu_hour / 3600) / tok_per_second * 1e6
+#
+# Utilisation is folded in because a pool running at 60% costs the same per
+# wall-clock second as one running at 100% — ignoring it is the single most
+# common way self-hosted cost models come out optimistic.
+self_hosted:
+  accelerator: NVIDIA H100 80GB SXM
+  gpu_count: 8
+  on_demand_usd_per_gpu_hour: 3.35
+  spot_usd_per_gpu_hour: 1.42
+  # Fraction of pool-hours served by spot capacity under the Karpenter mix.
+  spot_fraction: 0.72
+  # Steady-state fraction of GPU-seconds spent decoding rather than idle.
+  target_utilization: 0.78
+  source: >-
+    Blended H100 SXM on-demand and spot rates across AWS p5, GCP A3 and
+    Lambda Labs, 2026-09. Update alongside the reference dataset.
