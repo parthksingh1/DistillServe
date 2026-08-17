@@ -1,0 +1,286 @@
+# ---------------------------------------------------------------------------
+# Parameters for the reference benchmark dataset.
+#
+# `make reference-refresh` reads this file plus sources/catalog.yaml and emits
+# every payload under data/reference/. Nothing in the dataset is hand-edited:
+# changing a number here and regenerating is the only supported way to change
+# what sandbox mode reports, which is what keeps the whole dataset internally
+# consistent (throughput, cost and utilisation are derived from one another).
+#
+# Every figure below traces to a `source_id` in sources/catalog.yaml.
+# ---------------------------------------------------------------------------
+source_id: distillserve-canonical-run
+version: 2
+
+# --- Headline figures ------------------------------------------------------
+# These are the measured results of the canonical run. Everything else in the
+# dataset is derived from them, so they appear exactly once.
+headline:
+  # Sustained decode throughput per H100 at steady state, FP8 weights + FP8 KV
+  # cache + EAGLE-3 speculative decoding + prefix caching.
+  tokens_per_second_per_gpu: 3100
+  # p95 time to first token under the reference workload's arrival rate.
+  p95_ttft_ms: 210
+  p50_ttft_ms: 118
+  p99_ttft_ms: 340
+  # Inter-token latency. EAGLE-3 accepts multiple draft tokens per verify
+  # step, which is what pulls this below the 1/3100s a non-speculative
+  # decoder would give.
+  p50_itl_ms: 9.4
+  p95_itl_ms: 18.1
+  # Blended serving cost after FP8 + KV-cache tuning, versus the frontier API
+  # it replaced. The ratio is what the Overview hero reports.
+  usd_per_million_tokens: 0.19
+  frontier_usd_per_million_tokens: 2.80
+  # Weighted per-slice quality parity of the distilled student against the
+  # teacher, on the stratified test set.
+  quality_parity: 0.974
+  test_set_cases: 300
+  # Idle GPU spend removed by queue-depth + TTFT-driven Karpenter scaling
+  # with a spot/on-demand mix, versus static provisioning.
+  idle_gpu_spend_reduction: 0.41
+  spot_fraction: 0.72
+  # EAGLE-3 draft acceptance rate; the reason ITL is what it is.
+  acceptance_rate: 0.71
+  cache_hit_rate: 0.31
+
+# --- Workload shape --------------------------------------------------------
+# The arrival pattern the traces are generated against. A single sinusoid plus
+# noise rather than a flat line, because a flat load curve makes autoscaling
+# look trivially easy and hides the cold-start cost that dominates real
+# operation.
+workload:
+  # Calibrated so peak load saturates all 8 GPUs (~3,100 tok/s each) while
+  # mean load leaves the headroom the TTFT objective needs.
+  requests_per_second_mean: 62.0
+  requests_per_second_amplitude: 26.0
+  period_hours: 24
+  noise_fraction: 0.08
+  mean_input_tokens: 1180
+  mean_output_tokens: 260
+
+# --- Cluster -------------------------------------------------------------
+cluster:
+  gpu_count: 8
+  min_nodes: 3
+  max_nodes: 8
+  kv_cache_gb_per_gpu: 42.5
+  memory_total_gb: 80.0
+  # Seconds from Karpenter provisioning a node to it serving traffic. This is
+  # the number that makes aggressive scale-down expensive, so it is explicit.
+  cold_start_seconds: 94
+
+# --- Evaluation slices -----------------------------------------------------
+# The stratified test set's composition. Slice names are the join key across
+# routing, adapters and eval reports, so they match TASK_LABELS exactly.
+slices:
+  - { name: summarization, cases: 52, student: 0.912, teacher: 0.928 }
+  - { name: extraction, cases: 48, student: 0.941, teacher: 0.949 }
+  - { name: classification, cases: 44, student: 0.958, teacher: 0.966 }
+  - { name: sql_generation, cases: 38, student: 0.884, teacher: 0.913 }
+  - { name: rewrite, cases: 34, student: 0.926, teacher: 0.938 }
+  - { name: question_answering, cases: 30, student: 0.871, teacher: 0.902 }
+  - { name: reasoning, cases: 28, student: 0.782, teacher: 0.874 }
+  - { name: code_generation, cases: 26, student: 0.803, teacher: 0.881 }
+
+# --- Adapters --------------------------------------------------------------
+# Twelve LoRA adapters. Request share sums to 1.0 and is checked at build time.
+adapters:
+  - { id: adp-support-summary, task: summarization, rank: 16, share: 0.184, quality: 0.912 }
+  - { id: adp-ticket-triage, task: classification, rank: 8, share: 0.152, quality: 0.958 }
+  - { id: adp-invoice-extract, task: extraction, rank: 16, share: 0.131, quality: 0.941 }
+  - { id: adp-analytics-sql, task: sql_generation, rank: 32, share: 0.098, quality: 0.884 }
+  - { id: adp-tone-rewrite, task: rewrite, rank: 8, share: 0.087, quality: 0.926 }
+  - { id: adp-kb-answer, task: question_answering, rank: 16, share: 0.079, quality: 0.871 }
+  - { id: adp-contract-extract, task: extraction, rank: 32, share: 0.061, quality: 0.933 }
+  - { id: adp-release-notes, task: summarization, rank: 8, share: 0.054, quality: 0.905 }
+  - { id: adp-intent-router, task: classification, rank: 8, share: 0.047, quality: 0.962 }
+  - { id: adp-code-review, task: code_generation, rank: 32, share: 0.041, quality: 0.803 }
+  - { id: adp-chart-spec, task: sql_generation, rank: 16, share: 0.038, quality: 0.879 }
+  - { id: adp-policy-qa, task: question_answering, rank: 16, share: 0.028, quality: 0.866 }
+
+# --- Model registry --------------------------------------------------------
+# Fifteen runs: the teacher, distilled students, quantized variants and DPO
+# variants. `parity` is measured against the teacher on the same test set.
+registry:
+  - {
+      id: mv-teacher-001,
+      family: teacher,
+      version: '1.0.0',
+      parity: 1.000,
+      ttft: 486,
+      cost: 2.80,
+      status: promoted,
+    }
+  - {
+      id: mv-student-001,
+      family: student,
+      version: '0.1.0',
+      parity: 0.902,
+      ttft: 268,
+      cost: 0.44,
+      status: archived,
+    }
+  - {
+      id: mv-student-002,
+      family: student,
+      version: '0.2.0',
+      parity: 0.931,
+      ttft: 255,
+      cost: 0.44,
+      status: archived,
+    }
+  - {
+      id: mv-student-003,
+      family: student,
+      version: '0.3.0',
+      parity: 0.948,
+      ttft: 251,
+      cost: 0.44,
+      status: archived,
+    }
+  - {
+      id: mv-student-004,
+      family: student,
+      version: '0.4.0',
+      parity: 0.961,
+      ttft: 243,
+      cost: 0.44,
+      status: archived,
+    }
+  - {
+      id: mv-student-005,
+      family: student,
+      version: '1.0.0',
+      parity: 0.968,
+      ttft: 238,
+      cost: 0.44,
+      status: archived,
+    }
+  - {
+      id: mv-student-fp8-001,
+      family: quantized,
+      version: '1.0.0-fp8',
+      parity: 0.966,
+      ttft: 224,
+      cost: 0.26,
+      status: archived,
+    }
+  - {
+      id: mv-student-fp8-002,
+      family: quantized,
+      version: '1.1.0-fp8',
+      parity: 0.970,
+      ttft: 218,
+      cost: 0.23,
+      status: archived,
+    }
+  - {
+      id: mv-student-fp8-003,
+      family: quantized,
+      version: '1.2.0-fp8',
+      parity: 0.972,
+      ttft: 214,
+      cost: 0.21,
+      status: candidate,
+    }
+  - {
+      id: mv-student-dpo-001,
+      family: dpo,
+      version: '1.0.0-dpo',
+      parity: 0.969,
+      ttft: 240,
+      cost: 0.44,
+      status: archived,
+    }
+  - {
+      id: mv-student-dpo-002,
+      family: dpo,
+      version: '1.1.0-dpo',
+      parity: 0.974,
+      ttft: 236,
+      cost: 0.44,
+      status: archived,
+    }
+  - {
+      id: mv-student-dpo-fp8-001,
+      family: dpo,
+      version: '1.1.0-dpo-fp8',
+      parity: 0.974,
+      ttft: 210,
+      cost: 0.19,
+      status: promoted,
+    }
+  - {
+      id: mv-student-int4-001,
+      family: quantized,
+      version: '1.0.0-int4',
+      parity: 0.913,
+      ttft: 196,
+      cost: 0.14,
+      status: archived,
+    }
+  - {
+      id: mv-student-006,
+      family: student,
+      version: '1.3.0',
+      parity: 0.976,
+      ttft: 244,
+      cost: 0.44,
+      status: candidate,
+    }
+  - {
+      id: mv-student-dpo-003,
+      family: dpo,
+      version: '1.2.0-dpo',
+      parity: 0.981,
+      ttft: 239,
+      cost: 0.44,
+      status: candidate,
+    }
+
+# --- Rollouts --------------------------------------------------------------
+rollouts:
+  - id: rol-2026-08-fp8-dpo
+    name: FP8 + DPO student to full traffic
+    candidate: mv-student-dpo-fp8-001
+    baseline: mv-student-005
+    stage: full
+    notes: Completed migration with zero quality incidents.
+  - id: rol-2026-09-student-006
+    name: Student 1.3.0 canary
+    candidate: mv-student-006
+    baseline: mv-student-dpo-fp8-001
+    stage: canary_50
+    notes: Parity ahead of baseline on every slice except reasoning.
+  - id: rol-2026-09-dpo-003
+    name: DPO 1.2.0 shadow
+    candidate: mv-student-dpo-003
+    baseline: mv-student-dpo-fp8-001
+    stage: shadow
+    notes: Shadow traffic only; scoring against the teacher before any exposure.
+  - id: rol-2026-07-int4
+    name: INT4 student rollback
+    candidate: mv-student-int4-001
+    baseline: mv-student-005
+    stage: rolled_back
+    notes: Auto-rolled back at canary_10 on a reasoning-slice parity breach.
+
+# --- Tenants ---------------------------------------------------------------
+tenants:
+  - { id: acme-support, name: Acme Support, share: 0.38, student_share: 0.86 }
+  - { id: northwind-analytics, name: Northwind Analytics, share: 0.24, student_share: 0.71 }
+  - { id: globex-docs, name: Globex Docs, share: 0.19, student_share: 0.91 }
+  - { id: initech-eng, name: Initech Engineering, share: 0.12, student_share: 0.43 }
+  - { id: demo, name: Demo access, share: 0.07, student_share: 0.78 }
+
+# --- Eval configuration ----------------------------------------------------
+evals:
+  judge_model: groq/llama-3.3-70b-versatile
+  gate_threshold: 0.95
+  judge_drift: 0.013
+  calibration_cases: 40
+  adversarial:
+    - { suite: prompt_injection, attempts: 120, blocked: 116 }
+    - { suite: jailbreak, attempts: 80, blocked: 76 }
+    - { suite: distribution_shift, attempts: 100, blocked: 88 }
