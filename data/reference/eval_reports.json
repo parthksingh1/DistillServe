@@ -1,0 +1,3577 @@
+{
+  "source_id": "distillserve-canonical-run",
+  "description": "Pre-computed eval reports for every model version.",
+  "calibration_cases": 40,
+  "reports": [
+    {
+      "model_version_id": "mv-teacher-001",
+      "model_name": "Teacher 001",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 1.0,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.928,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.949,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.966,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.913,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.938,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.902,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.874,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.881,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 27,
+          "teacher_wins": 11,
+          "ties": 14
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 25,
+          "teacher_wins": 10,
+          "ties": 13
+        },
+        {
+          "slice": "classification",
+          "student_wins": 23,
+          "teacher_wins": 9,
+          "ties": 12
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-001",
+      "model_name": "Student 001",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.902,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.8446,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.8714,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.8872,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8187,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.8575,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8066,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7242,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.7436,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 26,
+          "teacher_wins": 12,
+          "ties": 14
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 11,
+          "ties": 13
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 10,
+          "ties": 12
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 6,
+          "ties": 7
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-002",
+      "model_name": "Student 002",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.931,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.8717,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.8995,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.9157,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.845,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.8851,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8325,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7475,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.7675,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 26,
+          "teacher_wins": 11,
+          "ties": 15
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-003",
+      "model_name": "Student 003",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.948,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.8877,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.9159,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.9324,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8604,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.9013,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8477,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7611,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.7816,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 26,
+          "teacher_wins": 11,
+          "ties": 15
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-004",
+      "model_name": "Student 004",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.961,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.8998,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.9284,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.9452,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8722,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.9136,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8594,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7716,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.7923,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 26,
+          "teacher_wins": 11,
+          "ties": 15
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-005",
+      "model_name": "Student 005",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.968,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.9064,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.9352,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.9521,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8786,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.9203,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8656,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7772,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.7981,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 26,
+          "teacher_wins": 11,
+          "ties": 15
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-fp8-001",
+      "model_name": "Student Fp8 001",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.966,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.9045,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.9333,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.9501,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8767,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.9184,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8638,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7756,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.7964,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 26,
+          "teacher_wins": 11,
+          "ties": 15
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-fp8-002",
+      "model_name": "Student Fp8 002",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.97,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.9083,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.9371,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.9541,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8804,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.9222,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8674,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7788,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.7997,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 26,
+          "teacher_wins": 11,
+          "ties": 15
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-fp8-003",
+      "model_name": "Student Fp8 003",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.972,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.9101,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.9391,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.956,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8822,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.9241,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8692,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7804,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.8014,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 27,
+          "teacher_wins": 11,
+          "ties": 14
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-dpo-001",
+      "model_name": "Student Dpo 001",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.969,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.9073,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.9362,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.9531,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8795,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.9212,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8665,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.778,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.7989,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 26,
+          "teacher_wins": 11,
+          "ties": 15
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-dpo-002",
+      "model_name": "Student Dpo 002",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.974,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.912,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.941,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.958,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.884,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.926,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.871,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.782,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.803,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 27,
+          "teacher_wins": 11,
+          "ties": 14
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-dpo-fp8-001",
+      "model_name": "Student Dpo Fp8 001",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.974,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.912,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.941,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.958,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.884,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.926,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.871,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.782,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.803,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 27,
+          "teacher_wins": 11,
+          "ties": 14
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-int4-001",
+      "model_name": "Student Int4 001",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.913,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.8549,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.8821,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.898,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8286,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.868,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8165,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.733,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.7527,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 26,
+          "teacher_wins": 11,
+          "ties": 15
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 11,
+          "ties": 13
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 10,
+          "ties": 12
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-006",
+      "model_name": "Student 006",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.976,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.9139,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.9429,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.96,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8858,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.9279,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8728,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7836,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.8046,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 27,
+          "teacher_wins": 11,
+          "ties": 14
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 24,
+          "teacher_wins": 10,
+          "ties": 14
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    },
+    {
+      "model_version_id": "mv-student-dpo-003",
+      "model_name": "Student Dpo 003",
+      "generated_at": "2026-08-30T00:00:00+00:00",
+      "dataset_version": "traces-2026-08",
+      "case_count": 300,
+      "overall_parity": 0.981,
+      "slices": [
+        {
+          "slice": "summarization",
+          "student_score": 0.9186,
+          "teacher_score": 0.928,
+          "sample_count": 52
+        },
+        {
+          "slice": "extraction",
+          "student_score": 0.9478,
+          "teacher_score": 0.949,
+          "sample_count": 48
+        },
+        {
+          "slice": "classification",
+          "student_score": 0.9649,
+          "teacher_score": 0.966,
+          "sample_count": 44
+        },
+        {
+          "slice": "sql_generation",
+          "student_score": 0.8904,
+          "teacher_score": 0.913,
+          "sample_count": 38
+        },
+        {
+          "slice": "rewrite",
+          "student_score": 0.9327,
+          "teacher_score": 0.938,
+          "sample_count": 34
+        },
+        {
+          "slice": "question_answering",
+          "student_score": 0.8773,
+          "teacher_score": 0.902,
+          "sample_count": 30
+        },
+        {
+          "slice": "reasoning",
+          "student_score": 0.7876,
+          "teacher_score": 0.874,
+          "sample_count": 28
+        },
+        {
+          "slice": "code_generation",
+          "student_score": 0.8088,
+          "teacher_score": 0.881,
+          "sample_count": 26
+        }
+      ],
+      "judge": [
+        {
+          "slice": "summarization",
+          "student_wins": 27,
+          "teacher_wins": 11,
+          "ties": 14
+        },
+        {
+          "slice": "extraction",
+          "student_wins": 25,
+          "teacher_wins": 10,
+          "ties": 13
+        },
+        {
+          "slice": "classification",
+          "student_wins": 22,
+          "teacher_wins": 9,
+          "ties": 13
+        },
+        {
+          "slice": "sql_generation",
+          "student_wins": 19,
+          "teacher_wins": 8,
+          "ties": 11
+        },
+        {
+          "slice": "rewrite",
+          "student_wins": 17,
+          "teacher_wins": 7,
+          "ties": 10
+        },
+        {
+          "slice": "question_answering",
+          "student_wins": 15,
+          "teacher_wins": 6,
+          "ties": 9
+        },
+        {
+          "slice": "reasoning",
+          "student_wins": 14,
+          "teacher_wins": 6,
+          "ties": 8
+        },
+        {
+          "slice": "code_generation",
+          "student_wins": 13,
+          "teacher_wins": 5,
+          "ties": 8
+        }
+      ],
+      "adversarial": [
+        {
+          "suite": "prompt_injection",
+          "attempts": 120,
+          "blocked": 116,
+          "passed_through": 4
+        },
+        {
+          "suite": "jailbreak",
+          "attempts": 80,
+          "blocked": 76,
+          "passed_through": 4
+        },
+        {
+          "suite": "distribution_shift",
+          "attempts": 100,
+          "blocked": 88,
+          "passed_through": 12
+        }
+      ],
+      "pareto": [
+        {
+          "model": "mv-teacher-001",
+          "quality": 1.0,
+          "p95_ttft_ms": 486,
+          "usd_per_million_tokens": 2.8,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-001",
+          "quality": 0.902,
+          "p95_ttft_ms": 268,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-002",
+          "quality": 0.931,
+          "p95_ttft_ms": 255,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-003",
+          "quality": 0.948,
+          "p95_ttft_ms": 251,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-004",
+          "quality": 0.961,
+          "p95_ttft_ms": 243,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-005",
+          "quality": 0.968,
+          "p95_ttft_ms": 238,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-001",
+          "quality": 0.966,
+          "p95_ttft_ms": 224,
+          "usd_per_million_tokens": 0.26,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-002",
+          "quality": 0.97,
+          "p95_ttft_ms": 218,
+          "usd_per_million_tokens": 0.23,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-fp8-003",
+          "quality": 0.972,
+          "p95_ttft_ms": 214,
+          "usd_per_million_tokens": 0.21,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-001",
+          "quality": 0.969,
+          "p95_ttft_ms": 240,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-002",
+          "quality": 0.974,
+          "p95_ttft_ms": 236,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-fp8-001",
+          "quality": 0.974,
+          "p95_ttft_ms": 210,
+          "usd_per_million_tokens": 0.19,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-int4-001",
+          "quality": 0.913,
+          "p95_ttft_ms": 196,
+          "usd_per_million_tokens": 0.14,
+          "on_frontier": true
+        },
+        {
+          "model": "mv-student-006",
+          "quality": 0.976,
+          "p95_ttft_ms": 244,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": false
+        },
+        {
+          "model": "mv-student-dpo-003",
+          "quality": 0.981,
+          "p95_ttft_ms": 239,
+          "usd_per_million_tokens": 0.44,
+          "on_frontier": true
+        }
+      ],
+      "gate_threshold": 0.95,
+      "judge_model": "groq/llama-3.3-70b-versatile",
+      "judge_drift": 0.013
+    }
+  ]
+}
