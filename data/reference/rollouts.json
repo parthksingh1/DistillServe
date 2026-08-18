@@ -1,0 +1,158 @@
+{
+  "source_id": "distillserve-canonical-run",
+  "description": "Canary rollouts and their service-level indicators.",
+  "rollouts": [
+    {
+      "id": "rol-2026-08-fp8-dpo",
+      "name": "FP8 + DPO student to full traffic",
+      "candidate_model": "mv-student-dpo-fp8-001",
+      "baseline_model": "mv-student-005",
+      "stage": "full",
+      "traffic_percent": 100,
+      "started_at": "2026-08-23T00:00:00+00:00",
+      "updated_at": "2026-08-31T00:00:00+00:00",
+      "auto_rollback": true,
+      "notes": "Completed migration with zero quality incidents.",
+      "slis": [
+        {
+          "name": "quality_parity",
+          "value": 0.974,
+          "threshold": 0.95,
+          "unit": "ratio",
+          "comparison": "gte",
+          "status": "healthy"
+        },
+        {
+          "name": "p95_ttft",
+          "value": 210.0,
+          "threshold": 250.0,
+          "unit": "ms",
+          "comparison": "lte",
+          "status": "healthy"
+        },
+        {
+          "name": "error_rate",
+          "value": 0.0012,
+          "threshold": 0.01,
+          "unit": "ratio",
+          "comparison": "lte",
+          "status": "healthy"
+        }
+      ]
+    },
+    {
+      "id": "rol-2026-09-student-006",
+      "name": "Student 1.3.0 canary",
+      "candidate_model": "mv-student-006",
+      "baseline_model": "mv-student-dpo-fp8-001",
+      "stage": "canary_50",
+      "traffic_percent": 50,
+      "started_at": "2026-08-25T00:00:00+00:00",
+      "updated_at": "2026-08-30T21:00:00+00:00",
+      "auto_rollback": true,
+      "notes": "Parity ahead of baseline on every slice except reasoning.",
+      "slis": [
+        {
+          "name": "quality_parity",
+          "value": 0.976,
+          "threshold": 0.95,
+          "unit": "ratio",
+          "comparison": "gte",
+          "status": "healthy"
+        },
+        {
+          "name": "p95_ttft",
+          "value": 244.0,
+          "threshold": 250.0,
+          "unit": "ms",
+          "comparison": "lte",
+          "status": "healthy"
+        },
+        {
+          "name": "error_rate",
+          "value": 0.0012,
+          "threshold": 0.01,
+          "unit": "ratio",
+          "comparison": "lte",
+          "status": "healthy"
+        }
+      ]
+    },
+    {
+      "id": "rol-2026-09-dpo-003",
+      "name": "DPO 1.2.0 shadow",
+      "candidate_model": "mv-student-dpo-003",
+      "baseline_model": "mv-student-dpo-fp8-001",
+      "stage": "shadow",
+      "traffic_percent": 0,
+      "started_at": "2026-08-27T00:00:00+00:00",
+      "updated_at": "2026-08-30T18:00:00+00:00",
+      "auto_rollback": true,
+      "notes": "Shadow traffic only; scoring against the teacher before any exposure.",
+      "slis": [
+        {
+          "name": "quality_parity",
+          "value": 0.981,
+          "threshold": 0.95,
+          "unit": "ratio",
+          "comparison": "gte",
+          "status": "healthy"
+        },
+        {
+          "name": "p95_ttft",
+          "value": 239.0,
+          "threshold": 250.0,
+          "unit": "ms",
+          "comparison": "lte",
+          "status": "healthy"
+        },
+        {
+          "name": "error_rate",
+          "value": 0.0012,
+          "threshold": 0.01,
+          "unit": "ratio",
+          "comparison": "lte",
+          "status": "healthy"
+        }
+      ]
+    },
+    {
+      "id": "rol-2026-07-int4",
+      "name": "INT4 student rollback",
+      "candidate_model": "mv-student-int4-001",
+      "baseline_model": "mv-student-005",
+      "stage": "rolled_back",
+      "traffic_percent": 0,
+      "started_at": "2026-08-29T00:00:00+00:00",
+      "updated_at": "2026-08-30T15:00:00+00:00",
+      "auto_rollback": true,
+      "notes": "Auto-rolled back at canary_10 on a reasoning-slice parity breach.",
+      "slis": [
+        {
+          "name": "quality_parity",
+          "value": 0.891,
+          "threshold": 0.95,
+          "unit": "ratio",
+          "comparison": "gte",
+          "status": "breached"
+        },
+        {
+          "name": "p95_ttft",
+          "value": 196.0,
+          "threshold": 250.0,
+          "unit": "ms",
+          "comparison": "lte",
+          "status": "healthy"
+        },
+        {
+          "name": "error_rate",
+          "value": 0.0012,
+          "threshold": 0.01,
+          "unit": "ratio",
+          "comparison": "lte",
+          "status": "healthy"
+        }
+      ]
+    }
+  ]
+}
