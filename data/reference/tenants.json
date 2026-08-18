@@ -1,0 +1,61 @@
+{
+  "source_id": "distillserve-canonical-run",
+  "description": "Per-tenant usage and cost attribution over 24h.",
+  "tenants": [
+    {
+      "tenant_id": "acme-support",
+      "name": "Acme Support",
+      "requests": 2035584,
+      "input_tokens": 2401989120,
+      "output_tokens": 529251840,
+      "cost_usd": 293.95,
+      "cache_hit_rate": 0.3658,
+      "p95_ttft_ms": 217.1,
+      "student_share": 0.86
+    },
+    {
+      "tenant_id": "northwind-analytics",
+      "name": "Northwind Analytics",
+      "requests": 1285632,
+      "input_tokens": 1517045760,
+      "output_tokens": 334264320,
+      "cost_usd": 316.51,
+      "cache_hit_rate": 0.3224,
+      "p95_ttft_ms": 208.3,
+      "student_share": 0.71
+    },
+    {
+      "tenant_id": "globex-docs",
+      "name": "Globex Docs",
+      "requests": 1017792,
+      "input_tokens": 1200994560,
+      "output_tokens": 264625920,
+      "cost_usd": 112.44,
+      "cache_hit_rate": 0.3069,
+      "p95_ttft_ms": 205.2,
+      "student_share": 0.91
+    },
+    {
+      "tenant_id": "initech-eng",
+      "name": "Initech Engineering",
+      "requests": 642816,
+      "input_tokens": 758522880,
+      "output_tokens": 167132160,
+      "cost_usd": 280.4,
+      "cache_hit_rate": 0.2852,
+      "p95_ttft_ms": 200.8,
+      "student_share": 0.43
+    },
+    {
+      "tenant_id": "demo",
+      "name": "Demo access",
+      "requests": 374976,
+      "input_tokens": 442471680,
+      "output_tokens": 97493760,
+      "cost_usd": 74.5,
+      "cache_hit_rate": 0.2697,
+      "p95_ttft_ms": 197.6,
+      "student_share": 0.78
+    }
+  ]
+}
