@@ -1,0 +1,422 @@
+{
+  "source_id": "distillserve-canonical-run",
+  "description": "GPU pool and rollout timeline for the reference deployment.",
+  "anchor": "2026-09-01T00:00:00+00:00",
+  "events": [
+    {
+      "id": "evt-0001",
+      "kind": "scale_up",
+      "offset_minutes": 420,
+      "at": "2026-09-01T07:00:00+00:00",
+      "message": "Queue depth crossed 12 for 60s; provisioning 2 nodes",
+      "node": "h100-spot-0a",
+      "severity": "info",
+      "detail": {
+        "trigger": "queue_depth"
+      }
+    },
+    {
+      "id": "evt-0002",
+      "kind": "cold_start",
+      "offset_minutes": 422,
+      "at": "2026-09-01T07:02:00+00:00",
+      "message": "Node warm in 94s (weights + CUDA graphs)",
+      "node": "h100-spot-0a",
+      "severity": "info",
+      "detail": {
+        "seconds": "94"
+      }
+    },
+    {
+      "id": "evt-0003",
+      "kind": "scale_down",
+      "offset_minutes": 1260,
+      "at": "2026-09-01T21:00:00+00:00",
+      "message": "p95 TTFT 84ms below objective for 10m; draining 2 nodes",
+      "node": "h100-spot-0a",
+      "severity": "info",
+      "detail": {
+        "trigger": "ttft_headroom"
+      }
+    },
+    {
+      "id": "evt-0004",
+      "kind": "scale_up",
+      "offset_minutes": 1860,
+      "at": "2026-09-02T07:00:00+00:00",
+      "message": "Queue depth crossed 12 for 60s; provisioning 2 nodes",
+      "node": "h100-spot-1a",
+      "severity": "info",
+      "detail": {
+        "trigger": "queue_depth"
+      }
+    },
+    {
+      "id": "evt-0005",
+      "kind": "cold_start",
+      "offset_minutes": 1862,
+      "at": "2026-09-02T07:02:00+00:00",
+      "message": "Node warm in 94s (weights + CUDA graphs)",
+      "node": "h100-spot-1a",
+      "severity": "info",
+      "detail": {
+        "seconds": "94"
+      }
+    },
+    {
+      "id": "evt-0022",
+      "kind": "spot_reclaim",
+      "offset_minutes": 2302,
+      "at": "2026-09-02T14:22:00+00:00",
+      "message": "Spot reclamation notice received; draining with 120s budget",
+      "node": "h100-spot-1b",
+      "severity": "warning",
+      "detail": {
+        "notice_seconds": "120"
+      }
+    },
+    {
+      "id": "evt-0023",
+      "kind": "scale_up",
+      "offset_minutes": 2303,
+      "at": "2026-09-02T14:23:00+00:00",
+      "message": "Replacing reclaimed capacity with on-demand node",
+      "node": "h100-od-1b",
+      "severity": "info",
+      "detail": {
+        "capacity_type": "on-demand"
+      }
+    },
+    {
+      "id": "evt-0024",
+      "kind": "cold_start",
+      "offset_minutes": 2305,
+      "at": "2026-09-02T14:25:00+00:00",
+      "message": "Replacement node serving after 94s",
+      "node": "h100-od-1b",
+      "severity": "info",
+      "detail": {}
+    },
+    {
+      "id": "evt-0034",
+      "kind": "sli_breach",
+      "offset_minutes": 2400,
+      "at": "2026-09-02T16:00:00+00:00",
+      "message": "rol-2026-07-int4 reasoning-slice parity 0.891 below 0.95 gate",
+      "node": null,
+      "severity": "critical",
+      "detail": {
+        "rollout": "rol-2026-07-int4",
+        "sli": "quality_parity"
+      }
+    },
+    {
+      "id": "evt-0035",
+      "kind": "rollout_rollback",
+      "offset_minutes": 2401,
+      "at": "2026-09-02T16:01:00+00:00",
+      "message": "rol-2026-07-int4 auto-rolled back to baseline; 0 requests affected",
+      "node": null,
+      "severity": "critical",
+      "detail": {
+        "rollout": "rol-2026-07-int4"
+      }
+    },
+    {
+      "id": "evt-0006",
+      "kind": "scale_down",
+      "offset_minutes": 2700,
+      "at": "2026-09-02T21:00:00+00:00",
+      "message": "p95 TTFT 84ms below objective for 10m; draining 2 nodes",
+      "node": "h100-spot-1a",
+      "severity": "info",
+      "detail": {
+        "trigger": "ttft_headroom"
+      }
+    },
+    {
+      "id": "evt-0007",
+      "kind": "scale_up",
+      "offset_minutes": 3300,
+      "at": "2026-09-03T07:00:00+00:00",
+      "message": "Queue depth crossed 12 for 60s; provisioning 2 nodes",
+      "node": "h100-spot-2a",
+      "severity": "info",
+      "detail": {
+        "trigger": "queue_depth"
+      }
+    },
+    {
+      "id": "evt-0008",
+      "kind": "cold_start",
+      "offset_minutes": 3302,
+      "at": "2026-09-03T07:02:00+00:00",
+      "message": "Node warm in 94s (weights + CUDA graphs)",
+      "node": "h100-spot-2a",
+      "severity": "info",
+      "detail": {
+        "seconds": "94"
+      }
+    },
+    {
+      "id": "evt-0031",
+      "kind": "rollout_advance",
+      "offset_minutes": 3480,
+      "at": "2026-09-03T10:00:00+00:00",
+      "message": "rol-2026-08-fp8-dpo advanced shadow -> canary_10",
+      "node": null,
+      "severity": "info",
+      "detail": {
+        "rollout": "rol-2026-08-fp8-dpo"
+      }
+    },
+    {
+      "id": "evt-0009",
+      "kind": "scale_down",
+      "offset_minutes": 4140,
+      "at": "2026-09-03T21:00:00+00:00",
+      "message": "p95 TTFT 84ms below objective for 10m; draining 2 nodes",
+      "node": "h100-spot-2a",
+      "severity": "info",
+      "detail": {
+        "trigger": "ttft_headroom"
+      }
+    },
+    {
+      "id": "evt-0010",
+      "kind": "scale_up",
+      "offset_minutes": 4740,
+      "at": "2026-09-04T07:00:00+00:00",
+      "message": "Queue depth crossed 12 for 60s; provisioning 2 nodes",
+      "node": "h100-spot-3a",
+      "severity": "info",
+      "detail": {
+        "trigger": "queue_depth"
+      }
+    },
+    {
+      "id": "evt-0011",
+      "kind": "cold_start",
+      "offset_minutes": 4742,
+      "at": "2026-09-04T07:02:00+00:00",
+      "message": "Node warm in 94s (weights + CUDA graphs)",
+      "node": "h100-spot-3a",
+      "severity": "info",
+      "detail": {
+        "seconds": "94"
+      }
+    },
+    {
+      "id": "evt-0025",
+      "kind": "spot_reclaim",
+      "offset_minutes": 4907,
+      "at": "2026-09-04T09:47:00+00:00",
+      "message": "Spot reclamation notice received; draining with 120s budget",
+      "node": "h100-spot-3b",
+      "severity": "warning",
+      "detail": {
+        "notice_seconds": "120"
+      }
+    },
+    {
+      "id": "evt-0026",
+      "kind": "scale_up",
+      "offset_minutes": 4908,
+      "at": "2026-09-04T09:48:00+00:00",
+      "message": "Replacing reclaimed capacity with on-demand node",
+      "node": "h100-od-3b",
+      "severity": "info",
+      "detail": {
+        "capacity_type": "on-demand"
+      }
+    },
+    {
+      "id": "evt-0027",
+      "kind": "cold_start",
+      "offset_minutes": 4910,
+      "at": "2026-09-04T09:50:00+00:00",
+      "message": "Replacement node serving after 94s",
+      "node": "h100-od-3b",
+      "severity": "info",
+      "detail": {}
+    },
+    {
+      "id": "evt-0032",
+      "kind": "rollout_advance",
+      "offset_minutes": 4980,
+      "at": "2026-09-04T11:00:00+00:00",
+      "message": "rol-2026-08-fp8-dpo advanced canary_10 -> canary_50",
+      "node": null,
+      "severity": "info",
+      "detail": {
+        "rollout": "rol-2026-08-fp8-dpo"
+      }
+    },
+    {
+      "id": "evt-0012",
+      "kind": "scale_down",
+      "offset_minutes": 5580,
+      "at": "2026-09-04T21:00:00+00:00",
+      "message": "p95 TTFT 84ms below objective for 10m; draining 2 nodes",
+      "node": "h100-spot-3a",
+      "severity": "info",
+      "detail": {
+        "trigger": "ttft_headroom"
+      }
+    },
+    {
+      "id": "evt-0013",
+      "kind": "scale_up",
+      "offset_minutes": 6180,
+      "at": "2026-09-05T07:00:00+00:00",
+      "message": "Queue depth crossed 12 for 60s; provisioning 2 nodes",
+      "node": "h100-spot-4a",
+      "severity": "info",
+      "detail": {
+        "trigger": "queue_depth"
+      }
+    },
+    {
+      "id": "evt-0014",
+      "kind": "cold_start",
+      "offset_minutes": 6182,
+      "at": "2026-09-05T07:02:00+00:00",
+      "message": "Node warm in 94s (weights + CUDA graphs)",
+      "node": "h100-spot-4a",
+      "severity": "info",
+      "detail": {
+        "seconds": "94"
+      }
+    },
+    {
+      "id": "evt-0033",
+      "kind": "rollout_advance",
+      "offset_minutes": 6300,
+      "at": "2026-09-05T09:00:00+00:00",
+      "message": "rol-2026-08-fp8-dpo advanced canary_50 -> full",
+      "node": null,
+      "severity": "info",
+      "detail": {
+        "rollout": "rol-2026-08-fp8-dpo"
+      }
+    },
+    {
+      "id": "evt-0015",
+      "kind": "scale_down",
+      "offset_minutes": 7020,
+      "at": "2026-09-05T21:00:00+00:00",
+      "message": "p95 TTFT 84ms below objective for 10m; draining 2 nodes",
+      "node": "h100-spot-4a",
+      "severity": "info",
+      "detail": {
+        "trigger": "ttft_headroom"
+      }
+    },
+    {
+      "id": "evt-0016",
+      "kind": "scale_up",
+      "offset_minutes": 7620,
+      "at": "2026-09-06T07:00:00+00:00",
+      "message": "Queue depth crossed 12 for 60s; provisioning 2 nodes",
+      "node": "h100-spot-5a",
+      "severity": "info",
+      "detail": {
+        "trigger": "queue_depth"
+      }
+    },
+    {
+      "id": "evt-0017",
+      "kind": "cold_start",
+      "offset_minutes": 7622,
+      "at": "2026-09-06T07:02:00+00:00",
+      "message": "Node warm in 94s (weights + CUDA graphs)",
+      "node": "h100-spot-5a",
+      "severity": "info",
+      "detail": {
+        "seconds": "94"
+      }
+    },
+    {
+      "id": "evt-0028",
+      "kind": "spot_reclaim",
+      "offset_minutes": 8228,
+      "at": "2026-09-06T17:08:00+00:00",
+      "message": "Spot reclamation notice received; draining with 120s budget",
+      "node": "h100-spot-5b",
+      "severity": "warning",
+      "detail": {
+        "notice_seconds": "120"
+      }
+    },
+    {
+      "id": "evt-0029",
+      "kind": "scale_up",
+      "offset_minutes": 8229,
+      "at": "2026-09-06T17:09:00+00:00",
+      "message": "Replacing reclaimed capacity with on-demand node",
+      "node": "h100-od-5b",
+      "severity": "info",
+      "detail": {
+        "capacity_type": "on-demand"
+      }
+    },
+    {
+      "id": "evt-0030",
+      "kind": "cold_start",
+      "offset_minutes": 8231,
+      "at": "2026-09-06T17:11:00+00:00",
+      "message": "Replacement node serving after 94s",
+      "node": "h100-od-5b",
+      "severity": "info",
+      "detail": {}
+    },
+    {
+      "id": "evt-0018",
+      "kind": "scale_down",
+      "offset_minutes": 8460,
+      "at": "2026-09-06T21:00:00+00:00",
+      "message": "p95 TTFT 84ms below objective for 10m; draining 2 nodes",
+      "node": "h100-spot-5a",
+      "severity": "info",
+      "detail": {
+        "trigger": "ttft_headroom"
+      }
+    },
+    {
+      "id": "evt-0019",
+      "kind": "scale_up",
+      "offset_minutes": 9060,
+      "at": "2026-09-07T07:00:00+00:00",
+      "message": "Queue depth crossed 12 for 60s; provisioning 2 nodes",
+      "node": "h100-spot-6a",
+      "severity": "info",
+      "detail": {
+        "trigger": "queue_depth"
+      }
+    },
+    {
+      "id": "evt-0020",
+      "kind": "cold_start",
+      "offset_minutes": 9062,
+      "at": "2026-09-07T07:02:00+00:00",
+      "message": "Node warm in 94s (weights + CUDA graphs)",
+      "node": "h100-spot-6a",
+      "severity": "info",
+      "detail": {
+        "seconds": "94"
+      }
+    },
+    {
+      "id": "evt-0021",
+      "kind": "scale_down",
+      "offset_minutes": 9900,
+      "at": "2026-09-07T21:00:00+00:00",
+      "message": "p95 TTFT 84ms below objective for 10m; draining 2 nodes",
+      "node": "h100-spot-6a",
+      "severity": "info",
+      "detail": {
+        "trigger": "ttft_headroom"
+      }
+    }
+  ]
+}
