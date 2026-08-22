@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design tokens.
+ *
+ * The palette is near-monochrome on purpose. Colour in an operational console
+ * should mean something — healthy, at risk, breached — and a UI that also uses
+ * colour decoratively spends the reader's attention before the status does.
+ *
+ * So: neutral slate surfaces, exactly one interactive accent, and a semantic
+ * triad reserved for state. No gradients on text, no coloured glows, no second
+ * brand colour competing with the first. Hierarchy is carried by type weight,
+ * size and density instead.
+ *
+ * Surfaces are layered — background -> surface -> card -> elevated — because
+ * depth is what keeps eight dense pages from reading as one grey wall, and it
+ * does that job more quietly than borders alone.
+ */
+@layer base {
+  :root {
+    --background: 220 18% 7%;
+    --surface: 220 16% 9%;
+    --card: 220 15% 11%;
+    --elevated: 220 14% 15%;
+
+    --foreground: 210 16% 95%;
+    --card-foreground: 210 16% 95%;
+    --muted: 220 13% 18%;
+    --muted-foreground: 218 11% 60%;
+    --border: 220 13% 18%;
+    --border-strong: 220 12% 26%;
+
+    /* One accent, a restrained steel blue. Used for interactive affordances
+       and the active nav state — not for emphasis, and never for status. */
+    --primary: 212 72% 60%;
+    --primary-foreground: 220 18% 7%;
+
+    /* Semantic triad. Desaturated relative to the usual defaults so a page
+       with several badges does not turn into a traffic light. */
+    --ok: 152 45% 48%;
+    --warn: 38 78% 56%;
+    --danger: 358 62% 58%;
+
+    --radius: 0.5rem;
+
+    /* Chart series. Neutral-first: the accent leads, then greys, and colour
+       only appears where a series genuinely carries semantic weight. */
+    --chart-1: 212 72% 60%;
+    --chart-2: 218 11% 60%;
+    --chart-3: 38 78% 56%;
+    --chart-4: 152 45% 48%;
+    --chart-5: 218 12% 40%;
+  }
+
+  html.light {
+    --background: 210 20% 98%;
+    --surface: 0 0% 100%;
+    --card: 0 0% 100%;
+    --elevated: 210 20% 96%;
+
+    --foreground: 220 20% 12%;
+    --card-foreground: 220 20% 12%;
+    --muted: 214 18% 94%;
+    --muted-foreground: 218 11% 42%;
+    --border: 214 18% 90%;
+    --border-strong: 214 16% 80%;
+
+    --primary: 212 74% 44%;
+    --primary-foreground: 0 0% 100%;
+    --ok: 152 48% 34%;
+    --warn: 32 80% 40%;
+    --danger: 358 58% 46%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Tabular figures everywhere: a dashboard whose numbers jitter as digits
+       change width is exhausting to watch. */
+    font-feature-settings: 'tnum' 1;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+
+  /* Scrollbars: visible enough to grab, quiet enough to ignore. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border-strong));
+    border-radius: 6px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  /*
+   * A card is a hairline border and a barely-there shadow. The temptation is
+   * to add a coloured glow; the reason not to is that a page of twelve glowing
+   * cards has no focal point, and the glow ends up competing with the status
+   * colours that actually need to be seen.
+   */
+  .surface-card {
+    @apply border-border bg-card relative rounded-lg border;
+    box-shadow: 0 1px 2px hsl(220 18% 3% / 0.35);
+  }
+
+  .surface-card-hover {
+    @apply transition-colors duration-150;
+  }
+  .surface-card-hover:hover {
+    @apply border-border-strong bg-elevated/40;
+  }
+
+  /* A faint ruled grid behind the hero. Neutral, not tinted — it reads as
+     paper texture rather than as a brand gradient. */
+  .grid-lines {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.65) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.65) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: linear-gradient(to bottom, black, transparent 70%);
+  }
+
+  /* Loading placeholder. A shape that matches the content it replaces beats a
+     spinner: the layout does not jump when data lands. */
+  .skeleton {
+    @apply bg-muted rounded;
+    animation: skeleton-pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-pulse {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  .live-dot {
+    @apply relative inline-flex size-1.5 rounded-full bg-current;
+  }
+  .live-dot::after {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-current;
+    animation: live-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes live-ping {
+    75%,
+    100% {
+      transform: scale(2.4);
+      opacity: 0;
+    }
+  }
+}
