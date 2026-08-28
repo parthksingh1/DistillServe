@@ -1,0 +1,77 @@
+# vLLM behind KServe.
+#
+# The flags here are the ones that produced the reference deployment's numbers,
+# and each is load-bearing rather than a default worth copying blindly.
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: distillserve-student
+  namespace: distillserve
+  annotations:
+    # Never scale to zero. A cold start is ~94s (weights + CUDA graph capture),
+    # longer than any request timeout worth having — the pool floor is enforced
+    # by the Karpenter NodePool instead.
+    serving.kserve.io/autoscalerClass: external
+spec:
+  predictor:
+    minReplicas: 3
+    maxReplicas: 8
+    containers:
+      - name: kserve-container
+        image: vllm/vllm-openai:v0.9.1
+        args:
+          - --model=meta-llama/Llama-3.1-8B-Instruct
+          - --served-model-name=distillserve-student
+          # FP8 weights + FP8 KV cache are most of the $2.80 -> $0.19 move: the
+          # KV cache is the memory bottleneck, and halving it roughly doubles
+          # the batch that fits on a card.
+          - --quantization=fp8
+          - --kv-cache-dtype=fp8
+          # Prefix caching pays for itself the moment prompts share a system
+          # preamble, which production traffic almost always does.
+          - --enable-prefix-caching
+          # EAGLE-3 speculative decoding: ~0.71 draft acceptance on this
+          # workload, which is what pulls ITL below what a non-speculative
+          # decoder at the same tok/s would give.
+          - --speculative-config={"model":"yuhuili/EAGLE3-LLaMA3.1-Instruct-8B","num_speculative_tokens":3,"method":"eagle3"}
+          # Multi-LoRA: all twelve adapters served from one process, selected
+          # per request by name. This is what makes hot-swap an API call rather
+          # than a redeploy.
+          - --enable-lora
+          - --max-loras=12
+          - --max-lora-rank=32
+          - --lora-modules=@/etc/distillserve/adapters.json
+          - --tensor-parallel-size=2
+          # 0.90, not 0.95: the higher value OOMs once twelve LoRA adapters and
+          # their CUDA graphs are resident.
+          - --gpu-memory-utilization=0.90
+          - --max-num-seqs=256
+        env:
+          - name: HF_TOKEN
+            valueFrom:
+              secretKeyRef: { name: distillserve-secrets, key: hf-token }
+        resources:
+          limits: { nvidia.com/gpu: '2', memory: 96Gi, cpu: '16' }
+          requests: { nvidia.com/gpu: '2', memory: 96Gi, cpu: '12' }
+        volumeMounts:
+          - { name: adapters, mountPath: /etc/distillserve }
+          - { name: shm, mountPath: /dev/shm }
+        readinessProbe:
+          httpGet: { path: /health, port: 8000 }
+          initialDelaySeconds: 90
+          periodSeconds: 10
+        livenessProbe:
+          httpGet: { path: /health, port: 8000 }
+          # Generous on purpose: a liveness probe that fires during a long
+          # generation restarts a healthy pod and drops every in-flight
+          # request with it.
+          initialDelaySeconds: 180
+          periodSeconds: 30
+          failureThreshold: 6
+    volumes:
+      - name: adapters
+        configMap: { name: distillserve-adapters }
+      # NCCL needs real shared memory for tensor parallelism; the 64MB default
+      # deadlocks on the first all-reduce.
+      - name: shm
+        emptyDir: { medium: Memory, sizeLimit: 16Gi }
