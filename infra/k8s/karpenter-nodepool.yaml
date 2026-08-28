@@ -1,0 +1,54 @@
+# GPU capacity: a spot-first mix with on-demand fallback.
+#
+# Spot is roughly 58% cheaper, and combined with scaling on queue depth rather
+# than CPU it is where the 41% idle-spend reduction came from. The cost of spot
+# is reclamation, which the disruption budget and the drain window absorb.
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: distillserve-gpu
+spec:
+  template:
+    metadata:
+      labels: { workload: distillserve-inference }
+    spec:
+      requirements:
+        - key: karpenter.sh/capacity-type
+          operator: In
+          # Order matters: Karpenter prefers the cheaper option, so spot is
+          # taken first and on-demand fills in when spot is unavailable.
+          values: ['spot', 'on-demand']
+        - key: node.kubernetes.io/instance-type
+          operator: In
+          values: ['p5.48xlarge', 'p5e.48xlarge']
+        - key: kubernetes.io/arch
+          operator: In
+          values: ['amd64']
+      nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
+        name: distillserve-gpu
+      taints:
+        - key: nvidia.com/gpu
+          effect: NoSchedule
+      # 120s is the AWS spot reclamation notice. Matching it means a reclaimed
+      # node finishes draining inside its own notice window rather than
+      # dropping in-flight generations.
+      terminationGracePeriod: 120s
+
+  limits:
+    nvidia.com/gpu: '8'
+
+  disruption:
+    # Only consolidate genuinely empty nodes. WhenEmptyOrUnderutilized churns a
+    # node mid-generation, and a 94s cold start makes that churn far more
+    # expensive than the idle capacity it would reclaim.
+    consolidationPolicy: WhenEmpty
+    consolidateAfter: 10m
+    budgets:
+      # Never disrupt more than one node at a time, and never during the
+      # weekday peak the reference workload shows.
+      - nodes: '1'
+      - nodes: '0'
+        schedule: '0 13 * * mon-fri'
+        duration: 6h
