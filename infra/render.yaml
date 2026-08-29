@@ -1,0 +1,56 @@
+# Render blueprint for the DistillServe backend.
+#
+# The gateway and the telemetry worker are separate services because they have
+# different failure modes and different scaling curves: the gateway is
+# request-driven and must stay responsive, while the worker maintains the
+# long-lived telemetry stream and may restart without dropping traffic.
+services:
+  - type: web
+    name: distillserve-gateway
+    runtime: python
+    plan: starter
+    region: oregon
+    branch: main
+    healthCheckPath: /healthz
+    buildCommand: pip install uv && uv sync --all-packages --frozen --no-dev
+    startCommand: uv run uvicorn distillserve_gateway.main:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: '3.11'
+      - key: DISTILLSERVE_MODE
+        value: sandbox
+      - key: DISTILLSERVE_ENV
+        value: production
+      - key: DISTILLSERVE_LOG_JSON
+        value: 'true'
+      # No DISTILLSERVE_GIT_SHA here on purpose: Render already injects
+      # RENDER_GIT_COMMIT, which core/build_info.py reads and /healthz echoes.
+      - key: GROQ_API_KEY
+        sync: false
+      - key: LANGFUSE_PUBLIC_KEY
+        sync: false
+      - key: LANGFUSE_SECRET_KEY
+        sync: false
+      - key: LANGFUSE_HOST
+        value: https://cloud.langfuse.com
+      - key: REDIS_URL
+        sync: false
+      - key: DISTILLSERVE_CORS_ALLOW_ORIGINS
+        sync: false
+
+# The telemetry worker lands in phase 7 together with the SSE stream it
+# feeds. It is kept here, commented, so the blueprint shows the intended
+# topology rather than silently deploying a service whose entrypoint does
+# not exist yet.
+#   - type: worker
+#     name: distillserve-telemetry
+#     runtime: python
+#     plan: starter
+#     region: oregon
+#     branch: main
+#     buildCommand: pip install uv && uv sync --all-packages --frozen --no-dev
+#     startCommand: uv run python -m distillserve_gateway.telemetry_worker
+#     autoDeploy: true
+#     envVars:
+#       - fromGroup: distillserve-shared
