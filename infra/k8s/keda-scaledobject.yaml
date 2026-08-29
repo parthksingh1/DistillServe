@@ -1,0 +1,55 @@
+# Scale on queue depth and TTFT, never CPU.
+#
+# A GPU serving pod saturates on neither CPU nor memory — it saturates on KV
+# cache and scheduler queue. CPU-based autoscaling on an inference workload
+# scales at the wrong time in both directions, which is the most common GPU
+# autoscaling mistake.
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: distillserve-student
+  namespace: distillserve
+spec:
+  scaleTargetRef:
+    name: distillserve-student-predictor
+  minReplicaCount: 3
+  maxReplicaCount: 8
+  # Long cooldown: scaling down into a 94s cold start costs more than the idle
+  # capacity it saves.
+  cooldownPeriod: 600
+  pollingInterval: 15
+
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleUp:
+          # React fast — a rising queue means requests are already waiting.
+          stabilizationWindowSeconds: 30
+          policies:
+            - { type: Pods, value: 2, periodSeconds: 60 }
+        scaleDown:
+          # React slowly — a premature scale-down is repaid at 94s per node.
+          stabilizationWindowSeconds: 600
+          policies:
+            - { type: Pods, value: 1, periodSeconds: 300 }
+
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus.monitoring.svc:9090
+        metricName: vllm_queue_depth
+        # 8 waiting requests per replica is where p95 TTFT starts to climb on
+        # this workload — measured, not guessed.
+        threshold: '8'
+        query: sum(vllm:num_requests_waiting{service="distillserve-student"})
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus.monitoring.svc:9090
+        metricName: vllm_p95_ttft_ms
+        # The same SLO the rollout controller gates on, so serving and rollout
+        # agree about what "too slow" means.
+        threshold: '250'
+        query: |
+          histogram_quantile(0.95,
+            sum(rate(vllm:time_to_first_token_seconds_bucket{service="distillserve-student"}[2m]))
+            by (le)) * 1000
