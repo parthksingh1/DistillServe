@@ -1,0 +1,19 @@
+# Prometheus scrape targets: vLLM's own metrics and the gateway's.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: distillserve
+  namespace: distillserve
+  labels: { release: kube-prometheus-stack }
+spec:
+  selector:
+    matchLabels: { app.kubernetes.io/part-of: distillserve }
+  endpoints:
+    - port: http
+      path: /metrics
+      # 15s: the KEDA triggers read 2-minute rates, so anything slower makes
+      # the autoscaler act on stale data.
+      interval: 15s
+    - port: vllm
+      path: /metrics
+      interval: 15s
