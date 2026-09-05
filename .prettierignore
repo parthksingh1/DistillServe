@@ -7,4 +7,9 @@ node_modules/
 # Machine-written and content-hashed. Prettier would reformat them and break
 # `--check` in CI, which compares against a freshly generated file byte for byte.
 apps/web/src/lib/generated/
-data/reference/manifest.json
+# Every JSON under data/reference/ is emitted by build_reference_payloads.py and
+# then SHA-256'd into the manifest. Letting prettier reformat one — it collapses
+# short arrays that json.dumps expands — silently decouples the checked-in bytes
+# from the hash they are recorded under. The YAML in this tree is hand-written
+# input and stays formatted.
+data/reference/*.json

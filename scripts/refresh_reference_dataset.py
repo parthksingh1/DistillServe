@@ -208,7 +208,7 @@ def main(argv: list[str] | None = None) -> int:
         print("data/reference/manifest.json is up to date.")
         return 0
 
-    MANIFEST.write_text(rendered, encoding="utf-8")
+    MANIFEST.write_text(rendered, encoding="utf-8", newline="\n")
     print(
         f"Wrote {MANIFEST.relative_to(REPO_ROOT)} — "
         f"{len(manifest['sources'])} sources, {len(manifest['payloads'])} payloads, "

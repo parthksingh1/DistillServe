@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import type { ReactElement, ReactNode } from 'react';
+import { useEffect, type ReactElement, type ReactNode } from 'react';
 
 import { cn } from '@/lib/cn';
 
@@ -417,11 +417,27 @@ export function Drawer({
   width = 'max-w-2xl',
 }: {
   title: string;
-  subtitle?: string;
+  // Explicitly `| undefined` because `exactOptionalPropertyTypes` otherwise
+  // rejects a caller passing an optional field straight through, which is
+  // exactly how every detail view supplies its subtitle.
+  subtitle?: string | undefined;
   onClose: () => void;
   children: ReactNode;
   width?: string;
 }): ReactElement {
+  // Escape closes the drawer. Without it the only way out is the backdrop or
+  // the X, which is a dead end for keyboard users — and the overlay silently
+  // swallows every click on the page behind it until it is dismissed.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [onClose]);
+
   return (
     <div
       className="bg-background/75 fixed inset-0 z-50 flex justify-end backdrop-blur-sm"

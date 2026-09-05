@@ -48,8 +48,17 @@ def _load() -> dict[str, Any]:
 
 
 def _write(name: str, payload: dict[str, Any]) -> Path:
+    r"""Write one payload with LF endings on every platform.
+
+    ``newline="\\n"`` is load-bearing rather than tidiness. Without it Python
+    translates ``\\n`` to ``os.linesep``, so a payload written on Windows is
+    CRLF while git stores it as LF — and because the manifest hashes raw bytes,
+    the digest computed on a developer's machine could never match the one CI
+    computes on Linux.
+    """
     path = DATA_DIR / name
-    path.write_text(json.dumps(payload, indent=2, sort_keys=False) + "\n", encoding="utf-8")
+    payload_json = json.dumps(payload, indent=2, sort_keys=False) + "\n"
+    path.write_text(payload_json, encoding="utf-8", newline="\n")
     return path
 
 

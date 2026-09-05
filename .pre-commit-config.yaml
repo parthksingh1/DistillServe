@@ -1,5 +1,12 @@
-# Hooks run on every commit; CI re-runs the same set with `pre-commit run --all-files`
-# so a green local commit and a green PR mean the same thing.
+# Hooks run on every commit; CI re-runs the same set with
+# `pre-commit run --all-files`, so a green local commit and a green PR mean the
+# same thing.
+#
+# ruff, black, mypy, eslint and prettier all run as `language: system` through
+# uv/pnpm against the synced workspace, rather than in pre-commit's own isolated
+# environments. Pinning versions here as well would put two versions of each
+# linter in one project, and a commit could pass locally while CI failed on a
+# rule the other version happens to have.
 default_language_version:
   python: python3.11
 
@@ -8,7 +15,10 @@ repos:
     rev: v5.0.0
     hooks:
       - id: check-added-large-files
-        args: ['--maxkb=1024']
+        # The README's screenshot grid is deliberate, checked-in binary content
+        # and the full-page Overview shot is just over 1MB. The check still
+        # exists to catch a model checkpoint or a stray recording.
+        args: ['--maxkb=1536']
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
@@ -18,32 +28,6 @@ repos:
       - id: mixed-line-ending
         args: ['--fix=lf']
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.4
-    hooks:
-      - id: ruff
-        args: ['--fix']
-      - id: ruff-format
-        # Formatting is owned by black; ruff-format would fight it.
-        stages: [manual]
-
-  - repo: https://github.com/psf/black
-    rev: 24.10.0
-    hooks:
-      - id: black
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.13.0
-    hooks:
-      - id: mypy
-        # mypy needs the real environment to resolve FastAPI/Pydantic types, so
-        # it runs through uv against the synced workspace rather than in
-        # pre-commit's isolated venv.
-        language: system
-        entry: uv run mypy
-        pass_filenames: false
-        args: ['.']
-
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.21.2
     hooks:
@@ -51,15 +35,39 @@ repos:
 
   - repo: local
     hooks:
+      - id: ruff
+        name: ruff
+        language: system
+        entry: uv run ruff check --fix
+        types: [python]
+
+      - id: black
+        name: black
+        language: system
+        entry: uv run black
+        types: [python]
+
+      - id: mypy
+        name: mypy
+        # mypy needs the real environment to resolve FastAPI and Pydantic
+        # types, so it runs against the synced workspace rather than an
+        # isolated venv.
+        language: system
+        entry: uv run mypy
+        args: ['.']
+        pass_filenames: false
+        types: [python]
+
       - id: eslint
         name: eslint
         language: system
         entry: pnpm run lint
         pass_filenames: false
         files: ^apps/web/.*\.(ts|tsx|js|jsx)$
+
       - id: prettier
         name: prettier
         language: system
         entry: pnpm run format:check
         pass_filenames: false
-        files: ^apps/web/.*\.(ts|tsx|css|json|md)$
+        files: \.(ts|tsx|css|json|md|ya?ml)$

@@ -6,6 +6,7 @@ import {
   Badge,
   Button,
   Card,
+  Drawer,
   ErrorState,
   Meter,
   PageTransition,
@@ -77,90 +78,67 @@ function Detail({ adapter, onClose }: { adapter: Adapter; onClose: () => void })
   }));
 
   return (
-    <div
-      className="bg-background/70 fixed inset-0 z-50 flex justify-end backdrop-blur-sm"
-      onClick={onClose}
-      role="presentation"
-    >
-      <div
-        className="border-border bg-card h-full w-full max-w-2xl overflow-y-auto border-l p-6"
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-        role="dialog"
-        aria-label={adapter.name}
-      >
-        <div className="mb-4 flex items-start justify-between">
-          <div>
-            <h2 className="text-xl font-semibold">{adapter.name}</h2>
-            <p className="text-muted-foreground font-mono text-xs">{adapter.id}</p>
-          </div>
-          <button type="button" onClick={onClose} className="text-muted-foreground">
-            ✕
-          </button>
+    <Drawer title={adapter.name} subtitle={adapter.id} onClose={onClose}>
+      <div className="mb-5 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+        <div>
+          <div className="text-muted-foreground text-xs">Task</div>
+          <div>{adapter.task.replace(/_/g, ' ')}</div>
         </div>
-
-        <div className="mb-5 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
-          <div>
-            <div className="text-muted-foreground text-xs">Task</div>
-            <div>{adapter.task.replace(/_/g, ' ')}</div>
-          </div>
-          <div>
-            <div className="text-muted-foreground text-xs">Rank / alpha</div>
-            <div className="font-mono">
-              {adapter.rank} / {adapter.alpha}
-            </div>
-          </div>
-          <div>
-            <div className="text-muted-foreground text-xs">Examples</div>
-            <div className="font-mono">{fmt.compact(adapter.training_examples)}</div>
-          </div>
-          <div>
-            <div className="text-muted-foreground text-xs">Trained</div>
-            <div>{fmt.date(adapter.trained_at)}</div>
+        <div>
+          <div className="text-muted-foreground text-xs">Rank / alpha</div>
+          <div className="font-mono">
+            {adapter.rank} / {adapter.alpha}
           </div>
         </div>
-
-        <h3 className="mb-2 text-sm font-medium">Per-slice quality</h3>
-        <Card className="mb-5">
-          <Heatmap slices={adapter.slices} />
-        </Card>
-
-        <h3 className="mb-2 text-sm font-medium">Request volume by slice</h3>
-        <Card className="mb-5">
-          <ResponsiveContainer width="100%" height={160}>
-            <BarChart data={volume}>
-              <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} vertical={false} />
-              <XAxis dataKey="name" tick={{ fontSize: 10 }} stroke={CHART.axis} />
-              <YAxis tick={{ fontSize: 10 }} stroke={CHART.axis} width={48} />
-              <Tooltip contentStyle={CHART_TOOLTIP} />
-              <Bar dataKey="requests" fill={CHART.accent} radius={[3, 3, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </Card>
-
-        <h3 className="mb-2 text-sm font-medium">Hot-swap</h3>
-        <div className="flex flex-wrap items-center gap-2">
-          {(['active', 'shadow', 'retired'] as const).map((status) => (
-            <Button
-              key={status}
-              variant={adapter.status === status ? 'primary' : 'default'}
-              disabled={swap.isPending || adapter.status === status}
-              onClick={() => {
-                swap.mutate(status);
-              }}
-            >
-              {status}
-            </Button>
-          ))}
-          {swap.isError && <span className="text-danger text-xs">{String(swap.error)}</span>}
+        <div>
+          <div className="text-muted-foreground text-xs">Examples</div>
+          <div className="font-mono">{fmt.compact(adapter.training_examples)}</div>
         </div>
-        <p className="text-muted-foreground mt-2 text-xs">
-          vLLM serves multiple LoRA adapters from one process, so a swap is an API call rather than
-          a redeploy. Requires the <code className="font-mono">operate</code> scope.
-        </p>
+        <div>
+          <div className="text-muted-foreground text-xs">Trained</div>
+          <div>{fmt.date(adapter.trained_at)}</div>
+        </div>
       </div>
-    </div>
+
+      <h3 className="mb-2 text-sm font-medium">Per-slice quality</h3>
+      <Card className="mb-5">
+        <Heatmap slices={adapter.slices} />
+      </Card>
+
+      <h3 className="mb-2 text-sm font-medium">Request volume by slice</h3>
+      <Card className="mb-5">
+        <ResponsiveContainer width="100%" height={160}>
+          <BarChart data={volume}>
+            <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} vertical={false} />
+            <XAxis dataKey="name" tick={{ fontSize: 10 }} stroke={CHART.axis} />
+            <YAxis tick={{ fontSize: 10 }} stroke={CHART.axis} width={48} />
+            <Tooltip contentStyle={CHART_TOOLTIP} />
+            <Bar dataKey="requests" fill={CHART.accent} radius={[3, 3, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </Card>
+
+      <h3 className="mb-2 text-sm font-medium">Hot-swap</h3>
+      <div className="flex flex-wrap items-center gap-2">
+        {(['active', 'shadow', 'retired'] as const).map((status) => (
+          <Button
+            key={status}
+            variant={adapter.status === status ? 'primary' : 'default'}
+            disabled={swap.isPending || adapter.status === status}
+            onClick={() => {
+              swap.mutate(status);
+            }}
+          >
+            {status}
+          </Button>
+        ))}
+        {swap.isError && <span className="text-danger text-xs">{String(swap.error)}</span>}
+      </div>
+      <p className="text-muted-foreground mt-2 text-xs">
+        vLLM serves multiple LoRA adapters from one process, so a swap is an API call rather than a
+        redeploy. Requires the <code className="font-mono">operate</code> scope.
+      </p>
+    </Drawer>
   );
 }
 

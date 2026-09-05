@@ -75,9 +75,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # No `version` here on purpose: the action reads `packageManager` from
+      # package.json, and specifying both makes it fail with
+      # "Multiple versions of pnpm specified".
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - uses: actions/setup-node@v4
         with:
@@ -148,9 +149,10 @@ jobs:
         with:
           enable-cache: true
           cache-dependency-glob: 'uv.lock'
+      # No `version` here on purpose: the action reads `packageManager` from
+      # package.json, and specifying both makes it fail with
+      # "Multiple versions of pnpm specified".
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -165,6 +167,10 @@ jobs:
         env:
           DISTILLSERVE_MODE: sandbox
           DISTILLSERVE_ENV: test
+          # Optional. Without it the live-generation leg skips and the rest of
+          # the journey still runs; with it, the whole thing does.
+          GEMINI_API_KEY: ${{ secrets.DISTILLSERVE_E2E_PROVIDER_KEY }}
+          DISTILLSERVE_E2E_PROVIDER_KEY: ${{ secrets.DISTILLSERVE_E2E_PROVIDER_KEY }}
         run: pnpm --filter @distillserve/web test:e2e
 
       - uses: actions/upload-artifact@v4
@@ -183,9 +189,10 @@ jobs:
       - uses: astral-sh/setup-uv@v3
         with:
           enable-cache: true
+      # No `version` here on purpose: the action reads `packageManager` from
+      # package.json, and specifying both makes it fail with
+      # "Multiple versions of pnpm specified".
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: 20

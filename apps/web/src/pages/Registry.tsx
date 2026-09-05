@@ -6,6 +6,7 @@ import {
   type BadgeTone,
   Button,
   Card,
+  Drawer,
   ErrorState,
   PageTransition,
   SectionTitle,
@@ -50,124 +51,99 @@ function Detail({
   });
 
   return (
-    <div
-      className="bg-background/70 fixed inset-0 z-50 flex justify-end backdrop-blur-sm"
-      onClick={onClose}
-      role="presentation"
-    >
-      <div
-        className="border-border bg-card h-full w-full max-w-2xl overflow-y-auto border-l p-6"
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-        role="dialog"
-        aria-label={version.name}
-      >
-        <div className="mb-4 flex items-start justify-between">
-          <div>
-            <h2 className="text-xl font-semibold">{version.name}</h2>
-            <p className="text-muted-foreground font-mono text-xs">
-              {version.id} · {version.version}
-            </p>
-          </div>
-          <button type="button" onClick={onClose} className="text-muted-foreground">
-            ✕
-          </button>
+    <Drawer title={version.name} subtitle={`${version.id} · ${version.version}`} onClose={onClose}>
+      <h3 className="mb-2 text-sm font-medium">Reproducibility</h3>
+      <Card className="mb-5 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+        <div>
+          <div className="text-muted-foreground text-xs">Git SHA</div>
+          <div className="font-mono text-xs">{version.git_sha}</div>
         </div>
+        <div>
+          <div className="text-muted-foreground text-xs">Dataset</div>
+          <div className="font-mono text-xs">{version.dataset_version}</div>
+        </div>
+        <div>
+          <div className="text-muted-foreground text-xs">Seed</div>
+          <div className="font-mono text-xs">{version.seed}</div>
+        </div>
+        <div>
+          <div className="text-muted-foreground text-xs">Base</div>
+          <div className="font-mono text-xs">{version.base_model}</div>
+        </div>
+        <div>
+          <div className="text-muted-foreground text-xs">Created</div>
+          <div className="text-xs">{fmt.date(version.created_at)}</div>
+        </div>
+      </Card>
 
-        <h3 className="mb-2 text-sm font-medium">Reproducibility</h3>
-        <Card className="mb-5 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
-          <div>
-            <div className="text-muted-foreground text-xs">Git SHA</div>
-            <div className="font-mono text-xs">{version.git_sha}</div>
-          </div>
-          <div>
-            <div className="text-muted-foreground text-xs">Dataset</div>
-            <div className="font-mono text-xs">{version.dataset_version}</div>
-          </div>
-          <div>
-            <div className="text-muted-foreground text-xs">Seed</div>
-            <div className="font-mono text-xs">{version.seed}</div>
-          </div>
-          <div>
-            <div className="text-muted-foreground text-xs">Base</div>
-            <div className="font-mono text-xs">{version.base_model}</div>
-          </div>
-          <div>
-            <div className="text-muted-foreground text-xs">Created</div>
-            <div className="text-xs">{fmt.date(version.created_at)}</div>
-          </div>
-        </Card>
-
-        <h3 className="mb-2 text-sm font-medium">Hyperparameters</h3>
-        <Card className="mb-5">
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm sm:grid-cols-3">
-            {Object.entries(version.hyperparameters).map(([key, value]) => (
-              <div key={key}>
-                <dt className="text-muted-foreground text-xs">{key.replace(/_/g, ' ')}</dt>
-                <dd className="font-mono text-xs">{value}</dd>
-              </div>
-            ))}
-          </dl>
-        </Card>
-
-        <h3 className="mb-2 text-sm font-medium">Per-slice eval</h3>
-        <Card className="mb-5">
-          {evalReport.isPending && <Spinner />}
-          {evalReport.isError && (
-            <p className="text-muted-foreground text-sm">No eval report for this version.</p>
-          )}
-          {evalReport.data && (
-            <div className="space-y-1 text-sm">
-              {evalReport.data.slices.map((slice) => {
-                const parity = slice.student_score / slice.teacher_score;
-                return (
-                  <div key={slice.slice} className="flex items-center justify-between">
-                    <span>{slice.slice.replace(/_/g, ' ')}</span>
-                    <span
-                      className={
-                        parity < evalReport.data.gate_threshold
-                          ? 'text-danger font-mono'
-                          : 'text-ok font-mono'
-                      }
-                    >
-                      {fmt.pct(parity, 1)}
-                    </span>
-                  </div>
-                );
-              })}
+      <h3 className="mb-2 text-sm font-medium">Hyperparameters</h3>
+      <Card className="mb-5">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm sm:grid-cols-3">
+          {Object.entries(version.hyperparameters).map(([key, value]) => (
+            <div key={key}>
+              <dt className="text-muted-foreground text-xs">{key.replace(/_/g, ' ')}</dt>
+              <dd className="font-mono text-xs">{value}</dd>
             </div>
-          )}
-        </Card>
+          ))}
+        </dl>
+      </Card>
 
-        <h3 className="mb-2 text-sm font-medium">Promotion history</h3>
-        <Card className="mb-5">
-          <ol className="space-y-1.5 text-sm">
-            {version.promotion_history.map((entry, index) => (
-              <li key={entry} className="flex gap-2">
-                <span className="text-muted-foreground font-mono text-xs">{index + 1}.</span>
-                <span>{entry}</span>
-              </li>
-            ))}
-          </ol>
-        </Card>
+      <h3 className="mb-2 text-sm font-medium">Per-slice eval</h3>
+      <Card className="mb-5">
+        {evalReport.isPending && <Spinner />}
+        {evalReport.isError && (
+          <p className="text-muted-foreground text-sm">No eval report for this version.</p>
+        )}
+        {evalReport.data && (
+          <div className="space-y-1 text-sm">
+            {evalReport.data.slices.map((slice) => {
+              const parity = slice.student_score / slice.teacher_score;
+              return (
+                <div key={slice.slice} className="flex items-center justify-between">
+                  <span>{slice.slice.replace(/_/g, ' ')}</span>
+                  <span
+                    className={
+                      parity < evalReport.data.gate_threshold
+                        ? 'text-danger font-mono'
+                        : 'text-ok font-mono'
+                    }
+                  >
+                    {fmt.pct(parity, 1)}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </Card>
 
-        <Button
-          variant="primary"
-          disabled={promote.isPending || version.status === 'promoted'}
-          onClick={() => {
-            promote.mutate();
-          }}
-        >
-          {version.status === 'promoted' ? 'Already promoted' : 'Promote to serving'}
-        </Button>
-        {promote.isError && <ErrorState error={promote.error} />}
-        <p className="text-muted-foreground mt-2 text-xs">
-          Promotion is exclusive within a family — the current holder is demoted, because two
-          promoted students would be an ambiguous routing target.
-        </p>
-      </div>
-    </div>
+      <h3 className="mb-2 text-sm font-medium">Promotion history</h3>
+      <Card className="mb-5">
+        <ol className="space-y-1.5 text-sm">
+          {version.promotion_history.map((entry, index) => (
+            <li key={entry} className="flex gap-2">
+              <span className="text-muted-foreground font-mono text-xs">{index + 1}.</span>
+              <span>{entry}</span>
+            </li>
+          ))}
+        </ol>
+      </Card>
+
+      <Button
+        variant="primary"
+        disabled={promote.isPending || version.status === 'promoted'}
+        onClick={() => {
+          promote.mutate();
+        }}
+      >
+        {version.status === 'promoted' ? 'Already promoted' : 'Promote to serving'}
+      </Button>
+      {promote.isError && <ErrorState error={promote.error} />}
+      <p className="text-muted-foreground mt-2 text-xs">
+        Promotion is exclusive within a family — the current holder is demoted, because two promoted
+        students would be an ambiguous routing target.
+      </p>
+    </Drawer>
   );
 }
 

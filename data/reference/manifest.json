@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "dataset_digest": "2e79aeeb89ba957c97ff1b07da434fd7e3c1ed67ba43f1c6147687e55413f210",
+  "dataset_digest": "68a5c9d791bc9524c2495d44ef2decdb15ebaa21ae81ade5cad39853fa1301ec",
   "reference_deployment": {
     "accelerator": "NVIDIA H100 80GB SXM",
     "gpu_count": 8,
@@ -73,20 +73,20 @@
     {
       "path": "data/reference/adapters.json",
       "source_id": "distillserve-canonical-run",
-      "bytes": 22000,
-      "sha256": "56607f272fd9c61019aabe44d39744b31bcb832264d42dc63fe6184d51e742fc"
+      "bytes": 21202,
+      "sha256": "8e7d6d2c9bd3d9ec9f4ee166d6ae9275ab00f068a753971ceba676cde52427a7"
     },
     {
       "path": "data/reference/cluster_events.json",
       "source_id": "distillserve-canonical-run",
-      "bytes": 11720,
-      "sha256": "3188e94f595467c5a32e85fd7f422833aeeb886a3824e52c7d73e89e8b2be339"
+      "bytes": 11298,
+      "sha256": "58de59afb48240c11851751458b1c99f9ddd02961300ea6dcb61cd0ec291c76b"
     },
     {
       "path": "data/reference/eval_reports.json",
       "source_id": "distillserve-canonical-run",
-      "bytes": 94878,
-      "sha256": "23f8450221a9d64474900409f6850f3273d4dd27174ad6ce5799bbe0ecedd561"
+      "bytes": 91301,
+      "sha256": "0c44d0efbc24aceb26f325914e1606cc76287cbbeac8955d99e4c9f4d99272eb"
     },
     {
       "path": "data/reference/generator.yaml",
@@ -97,26 +97,26 @@
     {
       "path": "data/reference/model_registry.json",
       "source_id": "distillserve-canonical-run",
-      "bytes": 12993,
-      "sha256": "5092655786f6c8d1867fb3432df78be9dd0c3e768d6423e0ca45e66b82d96d11"
+      "bytes": 12542,
+      "sha256": "f19777236c2c0746e6699fd43ed00e30cb88eb04200c1c14e5ebc41f993e517c"
     },
     {
       "path": "data/reference/rollouts.json",
       "source_id": "distillserve-canonical-run",
-      "bytes": 4519,
-      "sha256": "d54bdad26b7a70334b34ce28834aba8edfde9948240218c6e5c321f5a0ce93a5"
+      "bytes": 4361,
+      "sha256": "c75a650c46b05fec6d5982fe27bcbb4bf1684dda1bd3da93b1a8ad706a7c913b"
     },
     {
       "path": "data/reference/serving_trace.json",
       "source_id": "distillserve-canonical-run",
-      "bytes": 1143421,
-      "sha256": "f666670fc1252d5e3d411689bab51c0ce358e7c46ab02605a4f9d4d159ed5c09"
+      "bytes": 1105109,
+      "sha256": "1f9b072f7599dab952758cab164c531b2dea594dd1e86a905a06cd4cee5b0aa1"
     },
     {
       "path": "data/reference/tenants.json",
       "source_id": "distillserve-canonical-run",
-      "bytes": 1632,
-      "sha256": "bcd78a5f433e78898c9bc2d3c04b8c8658207fae021f978ee012147fbd1da03c"
+      "bytes": 1571,
+      "sha256": "70e6b1e36ea004568a6137dd1f3b93b02a9cce6979e6d76994f16dd013274661"
     }
   ]
 }

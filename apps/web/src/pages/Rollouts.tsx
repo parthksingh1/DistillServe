@@ -6,6 +6,7 @@ import {
   Badge,
   Button,
   Card,
+  Drawer,
   ErrorState,
   PageTransition,
   SectionTitle,
@@ -89,131 +90,112 @@ function Detail({ id, onClose }: { id: string; onClose: () => void }): ReactElem
   });
 
   return (
-    <div
-      className="bg-background/70 fixed inset-0 z-50 flex justify-end backdrop-blur-sm"
-      onClick={onClose}
-      role="presentation"
+    <Drawer
+      title={detail.data?.rollout.name ?? 'Rollout'}
+      subtitle={detail.data?.rollout.id}
+      onClose={onClose}
     >
-      <div
-        className="border-border bg-card h-full w-full max-w-2xl overflow-y-auto border-l p-6"
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-        role="dialog"
-        aria-label="Rollout detail"
-      >
-        {detail.isPending && <Spinner />}
-        {detail.isError && <ErrorState error={detail.error} />}
-        {detail.data && (
-          <>
-            <div className="mb-4 flex items-start justify-between">
-              <div>
-                <h2 className="text-xl font-semibold">{detail.data.rollout.name}</h2>
-                <p className="text-muted-foreground font-mono text-xs">{detail.data.rollout.id}</p>
-              </div>
-              <button type="button" onClick={onClose} className="text-muted-foreground">
-                ✕
-              </button>
-            </div>
+      {detail.isPending && <Spinner />}
+      {detail.isError && <ErrorState error={detail.error} />}
+      {detail.data && (
+        <>
+          <Card className="mb-5">
+            <StateMachine stage={detail.data.rollout.stage} />
+          </Card>
 
-            <Card className="mb-5">
-              <StateMachine stage={detail.data.rollout.stage} />
-            </Card>
-
-            <h3 className="mb-2 text-sm font-medium">Service-level indicators</h3>
-            <div className="mb-5 space-y-2">
-              {detail.data.rollout.slis.map((sli) => (
-                <Card key={sli.name} className="flex items-center justify-between p-3">
-                  <div>
-                    <div className="text-sm font-medium">{sli.name.replace(/_/g, ' ')}</div>
-                    <div className="text-muted-foreground text-xs">
-                      {sli.comparison === 'gte' ? 'must stay above' : 'must stay below'}{' '}
-                      <span className="font-mono">
-                        {sli.threshold} {sli.unit}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm tabular-nums">
-                      {sli.value} {sli.unit}
+          <h3 className="mb-2 text-sm font-medium">Service-level indicators</h3>
+          <div className="mb-5 space-y-2">
+            {detail.data.rollout.slis.map((sli) => (
+              <Card key={sli.name} className="flex items-center justify-between p-3">
+                <div>
+                  <div className="text-sm font-medium">{sli.name.replace(/_/g, ' ')}</div>
+                  <div className="text-muted-foreground text-xs">
+                    {sli.comparison === 'gte' ? 'must stay above' : 'must stay below'}{' '}
+                    <span className="font-mono">
+                      {sli.threshold} {sli.unit}
                     </span>
-                    <Badge tone={SLI_TONE[sli.status]}>{sli.status.replace(/_/g, ' ')}</Badge>
                   </div>
-                </Card>
-              ))}
-            </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-sm tabular-nums">
+                    {sli.value} {sli.unit}
+                  </span>
+                  <Badge tone={SLI_TONE[sli.status]}>{sli.status.replace(/_/g, ' ')}</Badge>
+                </div>
+              </Card>
+            ))}
+          </div>
 
-            <div className="mb-5 flex flex-wrap items-center gap-2">
-              <Button
-                variant="primary"
-                disabled={
-                  advance.isPending ||
-                  detail.data.rollout.stage === 'full' ||
-                  detail.data.rollout.stage === 'rolled_back' ||
-                  detail.data.rollout.slis.some((sli) => sli.status === 'breached')
-                }
-                onClick={() => {
-                  advance.mutate();
-                }}
-                data-testid="advance-rollout"
-              >
-                Advance stage
-              </Button>
-              <Button
-                variant="danger"
-                disabled={rollback.isPending || detail.data.rollout.stage === 'rolled_back'}
-                onClick={() => {
-                  rollback.mutate();
-                }}
-                data-testid="trigger-rollback"
-              >
-                Trigger rollback
-              </Button>
-              <input
-                value={reason}
-                onChange={(event) => {
-                  setReason(event.target.value);
-                }}
-                className="border-border bg-background flex-1 rounded border px-2 py-1.5 text-xs outline-none"
-                placeholder="Rollback reason (recorded verbatim)"
-              />
-            </div>
-            {advance.isError && <ErrorState error={advance.error} />}
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <Button
+              variant="primary"
+              disabled={
+                advance.isPending ||
+                detail.data.rollout.stage === 'full' ||
+                detail.data.rollout.stage === 'rolled_back' ||
+                detail.data.rollout.slis.some((sli) => sli.status === 'breached')
+              }
+              onClick={() => {
+                advance.mutate();
+              }}
+              data-testid="advance-rollout"
+            >
+              Advance stage
+            </Button>
+            <Button
+              variant="danger"
+              disabled={rollback.isPending || detail.data.rollout.stage === 'rolled_back'}
+              onClick={() => {
+                rollback.mutate();
+              }}
+              data-testid="trigger-rollback"
+            >
+              Trigger rollback
+            </Button>
+            <input
+              value={reason}
+              onChange={(event) => {
+                setReason(event.target.value);
+              }}
+              className="border-border bg-background flex-1 rounded border px-2 py-1.5 text-xs outline-none"
+              placeholder="Rollback reason (recorded verbatim)"
+            />
+          </div>
+          {advance.isError && <ErrorState error={advance.error} />}
 
-            <h3 className="mb-2 flex items-center gap-2 text-sm font-medium">
-              Audit trail
-              {detail.data.audit.length === 0 ? (
-                <Badge tone="muted">no entries</Badge>
-              ) : (
-                <Badge tone={detail.data.audit_verified ? 'ok' : 'danger'}>
-                  {detail.data.audit_verified ? 'chain verified' : 'chain broken'}
-                </Badge>
-              )}
-            </h3>
-            <p className="text-muted-foreground mb-2 text-xs">{detail.data.audit_detail}</p>
-            <div className="space-y-2" data-testid="audit-trail">
-              {detail.data.audit.map((entry) => (
-                <Card key={entry.id} className="p-3">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="font-medium">{entry.kind.replace(/_/g, ' ')}</span>
-                    <span className="text-muted-foreground text-xs">{fmt.time(entry.at)}</span>
-                  </div>
-                  <p className="text-muted-foreground mt-0.5 text-xs">
-                    {entry.actor} · {entry.reason}
-                  </p>
-                  <p className="text-muted-foreground mt-1 truncate font-mono text-[10px]">
-                    sig {entry.signature.slice(0, 32)}…
-                  </p>
-                </Card>
-              ))}
-              {detail.data.audit.length === 0 && (
-                <p className="text-muted-foreground text-sm">No entries yet.</p>
-              )}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+          <h3 className="mb-2 flex items-center gap-2 text-sm font-medium">
+            Audit trail
+            {detail.data.audit.length === 0 ? (
+              <Badge tone="muted">no entries</Badge>
+            ) : (
+              <Badge tone={detail.data.audit_verified ? 'ok' : 'danger'}>
+                {detail.data.audit_verified ? 'chain verified' : 'chain broken'}
+              </Badge>
+            )}
+          </h3>
+          <p className="text-muted-foreground mb-2 text-xs">{detail.data.audit_detail}</p>
+          <div className="space-y-2" data-testid="audit-trail">
+            {detail.data.audit.map((entry) => (
+              <Card key={entry.id} className="p-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium">{entry.kind.replace(/_/g, ' ')}</span>
+                  <span className="text-muted-foreground text-xs">{fmt.time(entry.at)}</span>
+                </div>
+                <p className="text-muted-foreground mt-0.5 text-xs">
+                  {entry.actor} · {entry.reason}
+                </p>
+                <p className="text-muted-foreground mt-1 truncate font-mono text-[10px]">
+                  sig {entry.signature.slice(0, 32)}…
+                </p>
+              </Card>
+            ))}
+            {detail.data.audit.length === 0 && (
+              <p className="text-muted-foreground text-sm">No entries yet.</p>
+            )}
+          </div>
+        </>
+      )}
+    </Drawer>
   );
 }
 

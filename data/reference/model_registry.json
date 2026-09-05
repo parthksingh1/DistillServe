@@ -57,7 +57,10 @@
       "p95_ttft_ms": 268,
       "usd_per_million_tokens": 0.44,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate"
+      ]
     },
     {
       "id": "mv-student-002",
@@ -83,7 +86,11 @@
       "p95_ttft_ms": 255,
       "usd_per_million_tokens": 0.44,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate", "superseded"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate",
+        "superseded"
+      ]
     },
     {
       "id": "mv-student-003",
@@ -109,7 +116,11 @@
       "p95_ttft_ms": 251,
       "usd_per_million_tokens": 0.44,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate", "superseded"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate",
+        "superseded"
+      ]
     },
     {
       "id": "mv-student-004",
@@ -135,7 +146,11 @@
       "p95_ttft_ms": 243,
       "usd_per_million_tokens": 0.44,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate", "superseded"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate",
+        "superseded"
+      ]
     },
     {
       "id": "mv-student-005",
@@ -161,7 +176,11 @@
       "p95_ttft_ms": 238,
       "usd_per_million_tokens": 0.44,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate", "superseded"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate",
+        "superseded"
+      ]
     },
     {
       "id": "mv-student-fp8-001",
@@ -187,7 +206,11 @@
       "p95_ttft_ms": 224,
       "usd_per_million_tokens": 0.26,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate", "superseded"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate",
+        "superseded"
+      ]
     },
     {
       "id": "mv-student-fp8-002",
@@ -213,7 +236,11 @@
       "p95_ttft_ms": 218,
       "usd_per_million_tokens": 0.23,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate", "superseded"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate",
+        "superseded"
+      ]
     },
     {
       "id": "mv-student-fp8-003",
@@ -239,7 +266,9 @@
       "p95_ttft_ms": 214,
       "usd_per_million_tokens": 0.21,
       "status": "candidate",
-      "promotion_history": ["registered"]
+      "promotion_history": [
+        "registered"
+      ]
     },
     {
       "id": "mv-student-dpo-001",
@@ -265,7 +294,11 @@
       "p95_ttft_ms": 240,
       "usd_per_million_tokens": 0.44,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate", "superseded"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate",
+        "superseded"
+      ]
     },
     {
       "id": "mv-student-dpo-002",
@@ -291,7 +324,11 @@
       "p95_ttft_ms": 236,
       "usd_per_million_tokens": 0.44,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate", "superseded"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate",
+        "superseded"
+      ]
     },
     {
       "id": "mv-student-dpo-fp8-001",
@@ -348,7 +385,11 @@
       "p95_ttft_ms": 196,
       "usd_per_million_tokens": 0.14,
       "status": "archived",
-      "promotion_history": ["registered", "passed CI gate", "superseded"]
+      "promotion_history": [
+        "registered",
+        "passed CI gate",
+        "superseded"
+      ]
     },
     {
       "id": "mv-student-006",
@@ -374,7 +415,9 @@
       "p95_ttft_ms": 244,
       "usd_per_million_tokens": 0.44,
       "status": "candidate",
-      "promotion_history": ["registered"]
+      "promotion_history": [
+        "registered"
+      ]
     },
     {
       "id": "mv-student-dpo-003",
@@ -400,7 +443,9 @@
       "p95_ttft_ms": 239,
       "usd_per_million_tokens": 0.44,
       "status": "candidate",
-      "promotion_history": ["registered"]
+      "promotion_history": [
+        "registered"
+      ]
     }
   ]
 }
