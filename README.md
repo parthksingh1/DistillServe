@@ -418,6 +418,13 @@ Today the platform routes, evaluates and rolls out; the distillation itself happ
 - **Provenance**: nothing enters `data/reference/` without a cited source.
 - **CI**: python · web · gateway smoke · Playwright end-to-end · pre-commit over all files.
 
+The end-to-end job runs entirely against `DISTILLSERVE_MODE=sandbox` and needs no
+credentials. One of its three cases sends a prompt to a live provider, so it skips
+unless a repository secret named `DISTILLSERVE_E2E_PROVIDER_KEY` is set (Settings →
+Secrets and variables → Actions). Skipping is the intended default: a fork should not
+need someone else's API key to get a green build, and a key that silently expires
+should not read as a code failure.
+
 - [`docs/walkthrough.md`](docs/walkthrough.md) — a two-minute click-through of the console.
 - [`docs/interview-guide.md`](docs/interview-guide.md) — architecture deep-dive, design
   rationale for every component, and the deployment runbook.
